@@ -3,9 +3,9 @@ package ua.edu.ucu.collections.immutable;
 import java.util.Arrays;
 
 public final class ImmutableArrayList implements ImmutableList {
-    Object[] immutableList;
+    private Object[] immutableList;
     public ImmutableArrayList(Object[] elements) {
-        immutableList = Arrays.copyOf(elements,elements.length);
+        immutableList = Arrays.copyOf(elements, elements.length);
     }
 
     public ImmutableArrayList() {
@@ -19,17 +19,19 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableList add(int index, Object e) {
-        return addAll(index,new Object[]{e});
+        return addAll(index, new Object[]{e});
     }
 
     @Override
     public ImmutableList addAll(Object[] c) {
-        return addAll(immutableList.length,c);
+        return addAll(immutableList.length, c);
     }
 
     @Override
     public ImmutableList addAll(int index, Object[] c) {
-        if (index > size() || index < 0) throw new IllegalArgumentException();
+        if (index > size() || index < 0) {
+            throw new IllegalArgumentException();
+        }
 
         Object[] newElements = new Object[immutableList.length+c.length];
         int newInd = 0;
@@ -40,12 +42,12 @@ public final class ImmutableArrayList implements ImmutableList {
             newInd++;
         }
 
-        for (Object elem: c){
+        for (Object elem: c) {
             newElements[newInd] = elem;
             newInd++;
         }
 
-        while (oldInd < immutableList.length){
+        while (oldInd < immutableList.length) {
             newElements[newInd] = immutableList[oldInd];
             oldInd++;
             newInd++;
@@ -55,16 +57,22 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public Object get(int index) {
-        if (index >= size() || index < 0) throw new IllegalArgumentException();
+        if (index >= size() || index < 0) {
+            throw new IllegalArgumentException();
+        }
         return immutableList[index];
     }
 
     @Override
     public ImmutableList remove(int index) {
-        if (index >= size() || index < 0) throw new IllegalArgumentException();
+        if (index >= size() || index < 0) {
+            throw new IllegalArgumentException();
+        }
         Object[] newElements = new Object[size() - 1];
-        for (int i = 0; i < size() - 1; i++){
-            if (i >= index) newElements[i] = get(i+1);
+        for (int i = 0; i < size() - 1; i++) {
+            if (i >= index) {
+                newElements[i] = get(i+1);
+            }
             else newElements[i] = get(i);
         }
         return new ImmutableArrayList(newElements);
@@ -72,7 +80,9 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableList set(int index, Object e) {
-        if (index >= size() || index < 0) throw new IllegalArgumentException();
+        if (index >= size() || index < 0) {
+            throw new IllegalArgumentException();
+        }
         Object[] newElements = toArray();
         newElements[index] = e;
         return new ImmutableArrayList(newElements);
@@ -80,8 +90,10 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public int indexOf(Object e) {
-        for (int i = 0; i < size(); i++){
-            if (get(i) == e) return i;
+        for (int i = 0; i < size(); i++) {
+            if (get(i) == e) {
+                return i;
+            }
         }
         return -1;
     }
@@ -103,6 +115,6 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public Object[] toArray() {
-        return Arrays.copyOf(immutableList,immutableList.length);
+        return Arrays.copyOf(immutableList, immutableList.length);
     }
 }
