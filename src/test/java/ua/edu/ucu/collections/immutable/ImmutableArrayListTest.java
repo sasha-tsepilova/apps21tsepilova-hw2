@@ -45,8 +45,12 @@ public class ImmutableArrayListTest {
     }
 
     @Test (expected =  IllegalArgumentException.class)
-    public void testGet() {
+    public void testGetException1() {
         Object num = arrayList.get(8);
+    }
+    @Test (expected =  IllegalArgumentException.class)
+    public void testGetException2() {
+        Object num = arrayList.get(-3);
     }
 
     @Test

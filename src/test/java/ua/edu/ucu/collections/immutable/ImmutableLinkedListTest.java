@@ -44,8 +44,12 @@ public class ImmutableLinkedListTest {
     }
 
     @Test (expected =  IllegalArgumentException.class)
-    public void testGet() {
+    public void testGetException1() {
         Object num = linkedList.get(8);
+    }
+    @Test (expected =  IllegalArgumentException.class)
+    public void testGetException2() {
+        Object num = linkedList.get(-3);
     }
 
     @Test
@@ -142,7 +146,7 @@ public class ImmutableLinkedListTest {
     public void getFirst() {
         assertEquals(1,linkedList.getFirst());
         ImmutableLinkedList newList = new ImmutableLinkedList();
-        Object num = newList.getLast();
+        Object num = newList.getFirst();
     }
 
     @Test (expected = IndexOutOfBoundsException.class)
