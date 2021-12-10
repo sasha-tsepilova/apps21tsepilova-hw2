@@ -30,8 +30,13 @@ public class ImmutableArrayListTest {
     }
 
     @Test (expected =  IllegalArgumentException.class)
-    public void testAddAll() {
+    public void testAddAllException1() {
         ImmutableArrayList added2 = (ImmutableArrayList) arrayList.addAll(9, new Object[]{1,2,3});
+    }
+
+    @Test (expected =  IllegalArgumentException.class)
+    public void testAddAllException2() {
+        ImmutableArrayList added2 = (ImmutableArrayList) arrayList.addAll(-1, new Object[]{1,2,3});
     }
 
     @Test
@@ -49,11 +54,36 @@ public class ImmutableArrayListTest {
         ImmutableArrayList newList = (ImmutableArrayList) arrayList.remove(1);
         assertArrayEquals(newList.toArray(), new Object[]{1,3,4,5,6,6});
     }
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveException1() {
+        ImmutableArrayList newList = (ImmutableArrayList) arrayList.remove(1000);
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveException2() {
+        ImmutableArrayList newList = (ImmutableArrayList) arrayList.remove(-3);
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveException3() {
+        ImmutableArrayList newList = (ImmutableArrayList) arrayList.remove(7);
+    }
 
     @Test
     public void set() {
         ImmutableArrayList newList = (ImmutableArrayList) arrayList.set(1,80);
         assertArrayEquals(newList.toArray(), new Object[]{1,80,3,4,5,6,6});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetException1() {
+        ImmutableArrayList newList = (ImmutableArrayList) arrayList.set(1000,80);
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetException2() {
+        ImmutableArrayList newList = (ImmutableArrayList) arrayList.set(-3,80);
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetException3() {
+        ImmutableArrayList newList = (ImmutableArrayList) arrayList.set(7,80);
     }
 
     @Test
@@ -77,6 +107,7 @@ public class ImmutableArrayListTest {
 
     @Test
     public void isEmpty() {
+        assertFalse(arrayList.isEmpty());
         ImmutableArrayList newList = (ImmutableArrayList) arrayList.clear();
         assertTrue(newList.isEmpty());
     }

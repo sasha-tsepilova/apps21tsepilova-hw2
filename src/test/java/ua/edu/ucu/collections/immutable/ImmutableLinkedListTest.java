@@ -29,8 +29,13 @@ public class ImmutableLinkedListTest {
     }
 
     @Test (expected =  IllegalArgumentException.class)
-    public void testAddAll() {
+    public void testAddAllException1() {
         ImmutableLinkedList added2 = (ImmutableLinkedList) linkedList.addAll(9, new Object[]{1,2,3});
+    }
+
+    @Test (expected =  IllegalArgumentException.class)
+    public void testAddAllException2() {
+        ImmutableLinkedList added2 = (ImmutableLinkedList) linkedList.addAll(-1, new Object[]{1,2,3});
     }
 
     @Test
@@ -49,11 +54,38 @@ public class ImmutableLinkedListTest {
         assertArrayEquals(newList.toArray(), new Object[]{1,3,4,5,6,6});
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveException1() {
+        ImmutableLinkedList newList = (ImmutableLinkedList) linkedList.remove(1000);
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveException2() {
+        ImmutableLinkedList newList = (ImmutableLinkedList) linkedList.remove(-3);
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveException3() {
+        ImmutableLinkedList newList = (ImmutableLinkedList) linkedList.remove(7);
+    }
+
     @Test
     public void set() {
         ImmutableLinkedList newList = (ImmutableLinkedList) linkedList.set(1,80);
         assertArrayEquals(newList.toArray(), new Object[]{1,80,3,4,5,6,6});
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetException1() {
+        ImmutableLinkedList newList = (ImmutableLinkedList) linkedList.set(1000,80);
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetException2() {
+        ImmutableLinkedList newList = (ImmutableLinkedList) linkedList.set(-3,80);
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetException3() {
+        ImmutableLinkedList newList = (ImmutableLinkedList) linkedList.set(7,80);
+    }
+
 
     @Test
     public void indexOf() {
@@ -78,6 +110,7 @@ public class ImmutableLinkedListTest {
     public void isEmpty() {
         ImmutableLinkedList newList = (ImmutableLinkedList) linkedList.clear();
         assertTrue(newList.isEmpty());
+        assertFalse(linkedList.isEmpty());
     }
 
     @Test
@@ -105,14 +138,18 @@ public class ImmutableLinkedListTest {
         assertEquals(6,linkedList.getTail().getValue());
     }
 
-    @Test
+    @Test(expected = IndexOutOfBoundsException.class)
     public void getFirst() {
         assertEquals(1,linkedList.getFirst());
+        ImmutableLinkedList newList = new ImmutableLinkedList();
+        Object num = newList.getLast();
     }
 
-    @Test
+    @Test (expected = IndexOutOfBoundsException.class)
     public void getLast() {
         assertEquals(6, linkedList.getLast());
+        ImmutableLinkedList newList = new ImmutableLinkedList();
+        Object num = newList.getLast();
     }
 
     @Test

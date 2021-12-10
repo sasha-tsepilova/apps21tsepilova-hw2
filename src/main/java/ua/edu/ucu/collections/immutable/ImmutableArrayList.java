@@ -29,7 +29,7 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableList addAll(int index, Object[] c) {
-        if (index > size()) throw new IllegalArgumentException();
+        if (index > size() || index < 0) throw new IllegalArgumentException();
 
         Object[] newElements = new Object[immutableList.length+c.length];
         int newInd = 0;
@@ -55,13 +55,13 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public Object get(int index) {
-        if (index >= size()) throw new IllegalArgumentException();
+        if (index >= size() || index < 0) throw new IllegalArgumentException();
         return immutableList[index];
     }
 
     @Override
     public ImmutableList remove(int index) {
-        if (index >= size()) throw new IllegalArgumentException();
+        if (index >= size() || index < 0) throw new IllegalArgumentException();
         Object[] newElements = new Object[size() - 1];
         for (int i = 0; i < size() - 1; i++){
             if (i >= index) newElements[i] = get(i+1);
@@ -72,7 +72,7 @@ public final class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableList set(int index, Object e) {
-        if (index >= size()) throw new IllegalArgumentException();
+        if (index >= size() || index < 0) throw new IllegalArgumentException();
         Object[] newElements = toArray();
         newElements[index] = e;
         return new ImmutableArrayList(newElements);
