@@ -73,7 +73,9 @@ public final class ImmutableArrayList implements ImmutableList {
             if (i >= index) {
                 newElements[i] = get(i+1);
             }
-            else newElements[i] = get(i);
+            else {
+                newElements[i] = get(i);
+            }
         }
         return new ImmutableArrayList(newElements);
     }
